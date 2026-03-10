@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{url_for('core.index')}}">Todo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        
+        {% if current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('user.index')}}"><i class="bi bi-house"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('todo.todo_today')}}">Todo's Today</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('user.account')}}"><i class="bi bi-person-square"></i> Account</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tasks History
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{url_for('todo.all_todos')}}"><i class="bi bi-card-checklist"></i> Show All Tasks</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{url_for('todo.completed_todos')}}"><i class="bi bi-list-check"></i> Show Completed Tasks</a></li>
+            <li><a class="dropdown-item" href="{{url_for('todo.uncompleted_todos')}}"><i class="bi bi-list"></i> Show Uncompleted Tasks</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('core.index')}}"><i class="bi bi-house"></i> Home</a>
+        </li>
+        {% endif %}
+        
+        
+      </ul>
+
+      <ul class="navbar-nav">
+        {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link">
+              <img src="{{url_for('user.static', filename='img/'+ current_user.avatar)}}" width="25" height="25" alt="">
+              Welcome, {{current_user.username}}</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url_for('user.logout')}}" class="nav-link"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{{url_for('user.register')}}" class="nav-link"><i class="bi bi-card-checklist"></i> Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url_for('user.login')}}" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+          </li>
+        {% endif %}
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
